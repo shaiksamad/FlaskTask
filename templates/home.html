@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+
+{% block body%}
+<h1><a href="/api/movies">Movies API</a></h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Sl.No</th>
+        <th>Name</th>
+        <th>Director</th>
+        <th>Cast</th>
+        <th>Year</th>
+        <th>Rated</th>
+        <th>Options</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if not movies %}
+    <h1>No Movies in DB</h1>
+    {% endif %}
+    {% set count = [1] %}
+    {% for movie in movies %}
+    {% set __ = count.append(1) %}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{movie.name}}</td>
+        <td>{{movie.director}}</td>
+        <td>{{movie.cast | join(',') }}</td>
+        <td>{{movie.year}}</td>
+        <td>{{movie.rated}}</td>
+        <td>
+            <a style="color: red;" href="/delete/{{movie.id}}">Delete</a>
+            <a style="color: green;" href="/update/{{movie.id}}">Edit</a>
+        </td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <form action="/add" method="post">
+            <td>
+                {{count|length}}
+            </td>
+            <td>
+                <input tabindex="1" type="text" name="name" id="newmovie" placeholder="Add new movie">
+            </td>
+            <td>
+                <input tabindex="2" type="text" name="director" id="director" placeholder="Director name">
+            </td>
+            <td>
+                <input tabindex="3" type="text" name="cast" id="cast" placeholder="cast, ..">
+            </td>
+            <td>
+                <input tabindex="4" onfocus="this.value=this.max" type="number" name="year" id="year" min="1900" max="2022" placeholder="year">
+            </td>
+            <td>
+                <input tabindex="5" onfocus="this.value=this.max" type="number" name="rated" id="rated" min="0" max="10" step="0.5" placeholder="rated">
+            </td>
+            <td>
+                <input tabindex="6" type="submit">
+            </td>
+    </form>
+    </tr>
+    </tbody>
+    
+</table>
+
+{% endblock %}

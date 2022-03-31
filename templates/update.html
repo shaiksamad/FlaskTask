@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} Update {% endblock %}
+
+{% block body%}
+    <h1>Update movie info: "{{movie.name}}"</h1>
+    <form action="/update/{{movie.id}}" method="post">
+        <td>
+            <input type="text" name="name" id="newmovie" placeholder="movie name" value="{{movie.name}}">
+        </td>
+        <td>
+            <input type="text" name="director" id="director" placeholder="Director name" value="{{movie.director}}">
+        </td>
+        <td>
+            <input type="text" name="cast" id="cast" placeholder="cast, .." value="{{movie.cast}}">
+        </td>
+        <td>
+            <input type="number" name="year" id="year" min="1900" max="2022" placeholder="year" value="{{movie.year}}">
+        </td>
+        <td>
+            <input type="number" name="rated" id="rated" min="0" max="10" step="0.5" placeholder="rated" value="{{movie.rated}}">
+        </td>
+        <td>
+            <input type="submit" value="Update">
+        </td>
+    </form>
+
+{% endblock %}
